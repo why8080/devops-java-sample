@@ -23,7 +23,11 @@ pipeline {
     stages {
         stage ('checkout scm') {
             steps {
-                checkout(scm)
+              container ('maven') {
+                  sh 'git config --global --unset http.proxy'
+                  sh 'git config --global --unset https.proxy'
+                  checkout(scm)
+              }
             }
         }
 
